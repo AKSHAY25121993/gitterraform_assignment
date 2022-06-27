@@ -21,9 +21,9 @@ module_private_subnet_cidr = "10.0.3.0/24"
 
 module_route_table_cidr = "0.0.0.0/0"
 
-module_public_availability_zone = "ap-northeast-1a"
+module_public_availability_zone = "ap-northeast-3a"
 
-module_private_availability_zone = "ap-northeast-1b"
+module_private_availability_zone = "ap-northeast-3b"
 
 module_vpc_tag = "AkshayVpc"
 

@@ -1,46 +1,41 @@
-name : 'Terraform Github Actions'
+name: 'github_terraform2'
 
-on:
+on: 
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
 
+env:
+  BUCKET:  akshaybucket1706
+  TFSTATE_FILE: Akshay.tfstate
+  DB_TABLE: AkshayDemoTable1
 
 jobs:
-  terraform:
-    name: Terraform
-    runs-on:  ubuntu-latest
-
-    env: 
-      AWS_ACCESS_KEY_ID:      ${{secrets.AWS_ACCESS_KEY_ID}}
-      AWS_SECRET_ACCESS_KEY:  ${{secrets.AWS_SECRET_ACCESS_KEY}}
-      AWS_SESSION_TOKEN:      ${{secrets.AWS_SESSION_TOKEN}}
-
-      AWS_REGION: ap-northeast-1
+  terraform-destroy:
+    runs-on: ubuntu-latest
 
     defaults:
       run:
         working-directory: ./Root
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
+    - uses: actions/checkout@v3
+    - uses: hashicorp/setup-terraform@v2
 
-      - name: Terraform Init
-        id: init
-        run:  terraform init
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} add token in secrets
+        aws-region: us-east-1      
 
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
+    - name: tf-init
+      id: init
+      run:
+        terraform init -reconfigure
+       -backend-config="bucket=$BUCKET" 
+       -backend-config="key=$TFSTATE_FILE" 
+       -backend-config="dynamodb_table=$DB_TABLE"
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
-
-      - name: Terraform Apply
-        id: apply
-        run:  terraform apply -auto-approve
-
-
-      
+    - name: Terraform destroy
+      id: destroy
+      run: terraform destroy -auto-approve

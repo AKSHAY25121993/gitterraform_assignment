@@ -1,5 +1,5 @@
 module "instance_module" {
-    source = "../Root"
+    source = "../Module"
     vpc_cidr = var.module_vpc_cidr
     instance_tenancy = var.module_instance_tenancy
     vpc_tag = var.module_vpc_tag

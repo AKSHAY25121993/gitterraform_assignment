@@ -1,71 +1,77 @@
-variable "module_vpc_cidr" {
-    type = string
-  
-}
-
-variable "module_instance_tenancy" {
-    type = string
-  
-}
-variable "module_vpc_tag" {
+variable "vpc_cidr" {
     type = string
 }
 
-variable "module_public_subnet_cidr" {
-   type = string
-}
-
-variable "module_true_val" {
-  type = string
-}
-
-variable "module_public_availability_zone" {
-   type = string
-}
-
-variable "module_public_subnet_tag" {
-  type = string
-}
-
-variable "module_private_subnet_cidr" {
-  type = string
-}
-
-variable "module_false_val" {
-  type = string
-}
-
-variable "module_private_availability_zone" {
-  type = string
-}
-
-variable "module_private_subnet_tag" {
-  type = string
-}
-
-variable "module_internet_gateway_tag" {
-  type = string
-}
-
-variable "module_route_table_cidr" {
-  type = string 
-}
-
-variable "module_route_table_tag" {
-  type = string
-}
-
-variable "module_ami" {
-    type = map(any)
-  
-}
-
-variable "module_key_name" {
+variable "instance_tenancy" {
     type = string
+}
+
+variable "public_subnet_cidr" {
+    type = string
+}
+
+variable "private_subnet_cidr" {
+  type= string
+}
+
+variable "public_availability_zone" {
+  type = string
+}
+
+variable "private_availability_zone" {
+  type = string
+}
+
+variable "route_table_cidr" {
+  type = string
+}
+
+variable "vpc_tag" {
+    type = string
+}
+
+variable "public_subnet_tag" {
+  type = string
+}
+
+variable "private_subnet_tag" {
+    type = string
+}
+
+variable "internet_gateway_tag" {
+  type = string
+}
+
+variable "route_table_tag" {
+  type = string
+}
+
+
+
+variable "true_val" {
+  type = string
+}
+
+variable "false_val" {
+  type = string
+}
+
+variable "ami" {
+  type = list
   
 }
 
-variable "module_instance_type" {
-    type = string
+variable "instance_type" {
+  type = string
   
 }
+
+variable "key_name" {
+  type = string
+  
+}
+
+variable "instance_tags"{
+  type = map
+}
+  
